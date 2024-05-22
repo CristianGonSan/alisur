@@ -11,7 +11,22 @@
                 'title' => 'Gestión de Usuarios',
                 'text' => 'Gestione a los usuarios para que puedan acceder.'
                 ])
+                @include('layouts.cards.text-card', [
+                   'route' => route('products.index'),
+                   'header' => 'Productos',
+                   'title' => 'Gestión de Productos',
+                   'text' => 'Gestione una vista hacia los productos.'
+                   ])
+                @include('layouts.cards.text-card', [
+                  'route' => route('admin.products.index'),
+                  'header' => 'Interno_Productos',
+                  'title' => 'Gestión de Productos',
+                  'text' => 'Gestione una vista hacia los productos.'
+                  ])
             @endif
+
+
+
 
         </div>
     </div>

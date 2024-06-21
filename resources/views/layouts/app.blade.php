@@ -15,6 +15,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div id="app">
@@ -74,7 +77,6 @@
         </div>
     @endif
     <main class="py-2">
-
         @yield('content')
     </main>
 </div>

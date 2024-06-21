@@ -23,9 +23,14 @@
                   'title' => 'Gestión de Productos',
                   'text' => 'Gestione una vista hacia los productos.'
                   ])
+                @include('layouts.cards.text-card', [
+                     'route' => route('admin.quotes.index'),
+                     'header' => 'Cotizaciones',
+                     'title' => 'Cotizaciones',
+                     'text' => 'Gestione una vista hacia las cotizaciones.'
+                 ])
+
             @endif
-
-
 
 
         </div>

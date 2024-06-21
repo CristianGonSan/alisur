@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class AdminProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('id_producto', 'desc')->get();
         return view('admin.products.index', compact('products'));
     }
 
@@ -18,7 +18,7 @@ class ProductController extends Controller
         return view('admin.products.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'name' => 'required',
@@ -28,33 +28,34 @@ class ProductController extends Controller
         ]);
 
         Product::create($request->all());
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index')->with('success', 'Producto creado exitosamente.');
     }
 
-    public function edit($id)
+    public function edit($id_producto)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::findOrFail($id_producto);
         return view('admin.products.edit', compact('product'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'technical_code' => 'required|unique:products,technical_code,' . $id,
-            'unit' => 'required',
-            'unit_price' => 'required|numeric',
+
         ]);
 
         $product = Product::findOrFail($id);
         $product->update($request->all());
-        return redirect()->route('admin.products.index');
+
+        $product->save();
+
+        return redirect()->route('admin.products.index')->with('success', 'Producto actualizado exitosamente.');
     }
 
-    public function destroy($id)
+    public function destroy($id_producto)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::findOrFail($id_producto);
         $product->delete();
-        return redirect()->route('admin.products.index');
+
+        return redirect()->route('admin.products.index')->with('success', 'Producto eliminado correctamente.');
     }
 }
